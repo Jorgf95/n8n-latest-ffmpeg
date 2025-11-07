@@ -26,5 +26,13 @@ services:
           property: url
       - key: N8N_HOST
         value: n8n-latest-ffmpeg.onrender.com
+      - key: N8N_EDITOR_BASE_URL
+        value: https://n8n-latest-ffmpeg.onrender.com
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true
+      - key: EXECUTIONS_MODE
+        value: queue
+      - key: N8N_DIAGNOSTICS_ENABLED
+        value: 'false'
     ports:
       - port: 5678
