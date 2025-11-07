@@ -17,8 +17,8 @@ RUN apk update && \
       bash \
     && rm -rf /var/cache/apk/*
 
-# Install Python packages if needed
-RUN pip3 install --no-cache-dir --upgrade pip
+# Remove a linha problemática do pip upgrade
+# RUN pip3 install --no-cache-dir --upgrade pip
 
 # Switch back to n8n user
 USER node
