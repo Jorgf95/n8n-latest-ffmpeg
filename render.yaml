@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: n8n
+    env: docker
+    plan: starter
+    autoDeploy: true
+    envVars:
+      - key: N8N_PORT
+        value: 5678
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: 'true'
+      - key: N8N_BASIC_AUTH_USER
+        value: admin
+      - key: N8N_BASIC_AUTH_PASSWORD
+        value: admin123
+      - key: GENERIC_TIMEZONE
+        value: America/Sao_Paulo
+      - key: TZ
+        value: America/Sao_Paulo
+      - key: N8N_PROTOCOL
+        value: https
+      - key: WEBHOOK_URL
+        fromService:
+          type: web
+          name: n8n
+          property: url
+      - key: EXECUTIONS_MODE
+        value: regular
+      - key: DB_TYPE
+        value: sqlite
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true
+      - key: N8N_DIAGNOSTICS_ENABLED
+        value: 'false'
+      - key: N8N_USER_FOLDER
+        value: /home/node/.n8n
+    ports:
+      - port: 5678
