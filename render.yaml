@@ -28,6 +28,13 @@ services:
         value: n8n-latest-ffmpeg.onrender.com
       - key: N8N_EDITOR_BASE_URL
         value: https://n8n-latest-ffmpeg.onrender.com
+      # VARIÁVEIS ESPECÍFICAS PARA OAUTH
+      - key: N8N_PUBLIC_API_ENDPOINT
+        value: https://n8n-latest-ffmpeg.onrender.com/api
+      - key: N8N_PUBLIC_WEBHOOK_URL
+        value: https://n8n-latest-ffmpeg.onrender.com
+      - key: N8N_UI_HOST
+        value: n8n-latest-ffmpeg.onrender.com
       - key: N8N_ENCRYPTION_KEY
         generateValue: true
       - key: EXECUTIONS_MODE
