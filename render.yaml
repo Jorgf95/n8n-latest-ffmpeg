@@ -34,5 +34,36 @@ services:
         value: queue
       - key: N8N_DIAGNOSTICS_ENABLED
         value: 'false'
+      # Configurações do PostgreSQL
+      - key: DB_TYPE
+        value: postgresdb
+      - key: DB_POSTGRESDB_HOST
+        fromDatabase:
+          name: n8n-db
+          property: host
+      - key: DB_POSTGRESDB_PORT
+        fromDatabase:
+          name: n8n-db
+          property: port
+      - key: DB_POSTGRESDB_DATABASE
+        fromDatabase:
+          name: n8n-db
+          property: database
+      - key: DB_POSTGRESDB_USER
+        fromDatabase:
+          name: n8n-db
+          property: user
+      - key: DB_POSTGRESDB_PASSWORD
+        fromDatabase:
+          name: n8n-db
+          property: password
     ports:
       - port: 5678
+
+  - type: pgsql
+    name: n8n-db
+    plan: starter
+    ipAllowList: []
+    disk:
+      name: n8n-db-data
+      sizeGB: 1
