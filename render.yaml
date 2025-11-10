@@ -44,6 +44,17 @@ services:
         value: regular
       - key: N8N_DIAGNOSTICS_ENABLED
         value: 'false'
+      
+      # Recomendado para novas versões do n8n
+      - key: DB_SQLITE_POOL_SIZE
+        value: '5'
+      - key: N8N_RUNNERS_ENABLED
+        value: 'true'
+      - key: N8N_BLOCK_ENV_ACCESS_IN_NODE
+        value: 'false'
+      - key: N8N_GIT_NODE_DISABLE_BARE_REPOS
+        value: 'true'
+
 
       # Banco de dados PostgreSQL persistente
       - key: DB_TYPE
