@@ -4,44 +4,48 @@ services:
     env: docker
     plan: starter
     autoDeploy: true
+    dockerfilePath: ./Dockerfile
     envVars:
+      # Configuração básica
       - key: N8N_PORT
         value: 5678
+      - key: N8N_PROTOCOL
+        value: https
+      - key: N8N_HOST
+        value: n8n-latest-ffmpeg.onrender.com
+      - key: WEBHOOK_URL
+        fromService:
+          type: web
+          name: n8n
+          property: url
+      - key: N8N_EDITOR_BASE_URL
+        value: https://n8n-latest-ffmpeg.onrender.com
+
+      # Autenticação
       - key: N8N_BASIC_AUTH_ACTIVE
         value: 'true'
       - key: N8N_BASIC_AUTH_USER
         value: admin
       - key: N8N_BASIC_AUTH_PASSWORD
         value: admin123
+
+      # Timezone
       - key: GENERIC_TIMEZONE
         value: America/Sao_Paulo
       - key: TZ
         value: America/Sao_Paulo
-      - key: N8N_PROTOCOL
-        value: https
-      - key: WEBHOOK_URL
-        fromService:
-          type: web
-          name: n8n
-          property: url
-      - key: N8N_HOST
-        value: n8n-latest-ffmpeg.onrender.com
-      - key: N8N_EDITOR_BASE_URL
-        value: https://n8n-latest-ffmpeg.onrender.com
-      # VARIÁVEIS ESPECÍFICAS PARA OAUTH
-      - key: N8N_PUBLIC_API_ENDPOINT
-        value: https://n8n-latest-ffmpeg.onrender.com/api
-      - key: N8N_PUBLIC_WEBHOOK_URL
-        value: https://n8n-latest-ffmpeg.onrender.com
-      - key: N8N_UI_HOST
-        value: n8n-latest-ffmpeg.onrender.com
+
+      # Segurança
       - key: N8N_ENCRYPTION_KEY
         generateValue: true
+
+      # Configurações de execução
       - key: EXECUTIONS_MODE
-        value: queue
+        value: regular
       - key: N8N_DIAGNOSTICS_ENABLED
         value: 'false'
-      # Configurações do PostgreSQL
+
+      # Banco de dados PostgreSQL persistente
       - key: DB_TYPE
         value: postgresdb
       - key: DB_POSTGRESDB_HOST
@@ -64,13 +68,14 @@ services:
         fromDatabase:
           name: n8n-db
           property: password
+
     ports:
       - port: 5678
 
+  # Banco de dados PostgreSQL persistente
   - type: pgsql
     name: n8n-db
     plan: starter
-    ipAllowList: []
     disk:
       name: n8n-db-data
       sizeGB: 1
